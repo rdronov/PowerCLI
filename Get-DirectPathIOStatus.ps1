@@ -16,7 +16,7 @@ $VIServer = Read-Host -Prompt " Input the vCenter server name and then press Ent
 Connect-VIServer -Server $VIServer -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
 
 # Read all VMs that have VMXNET3 
-$VMNetworks = Get-VM | Where-Object {$_.Version -eq "v11"} | Get-NetworkAdapter | Where-Object {$_.Type -eq "Vmxnet3"}
+$VMNetworks = Get-VM | Get-NetworkAdapter | Where-Object {$_.Type -eq "Vmxnet3"}
 
 # Get information about the network card
 For ($i=0; $i -lt $VMNetworks.Count; $i++) {
@@ -29,6 +29,7 @@ For ($i=0; $i -lt $VMNetworks.Count; $i++) {
     Else {$DPIOStatus = "Enabled"}
 
         $Properties = @{'Virtual Machine' = $VM.Name;
+                        'HW Version' = $VM.Version;
                         'Network Adapter' = $VMNetworkAdapter;
                         'Network Name' = $VMNetworkName
                         'DPIO Status' = $DPIOStatus
@@ -45,4 +46,4 @@ Clear-Host
 
 # Print out the results
 Write-Host "`n`tDirectPath I/O status`n"
-$OutputCollection | Sort-Object -Property "Virtual Machine" | Format-Table Virtual*,*Adapter,*Name,*Status -AutoSize
+$OutputCollection | Sort-Object -Property "Virtual Machine" | Format-Table Virtual*,*Version,*Adapter,*Name,*Status -AutoSize
