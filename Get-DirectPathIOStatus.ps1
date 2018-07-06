@@ -1,15 +1,40 @@
 # File name: Get-DirectPathIOStatus.ps1
 # Description: VMXNET3 - Network DirectPath I/O Status
 # VMware KB: https://kb.vmware.com/kb/2145889
-# 
+#
+# 06/07/2018 - Version 1.0.1 - Minor changes to check PowerCLI version
+# 26/04/2017 - Version 1.0 - Initial Release
+#
 # Author: Roman Dronov (c)
+
 
 # Initial variables
 $OutputCollection = @()
+$newModule = "VMware.PowerCLI"
+$oldModule = "VMware.VimAutomation.Core"
 
-# Clear screen and add in the PowerCLI CMDLET
+
+# Check the PowerCLI module availability
 Clear-Host
-Add-PSSnapin VMware.VimAutomation.Core -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
+Write-Host "`n  Checking if the VMware PowerCLI module exists...`r"
+
+if($(Get-InstalledModule | ? {$_.Name -like $newModule}) -eq $null) {
+    
+    if ($(Get-Module | ? {$_.Name -like $oldModule}) -eq $null -and $(Get-Module -Name $oldModule -ListAvailable -ErrorAction SilentlyContinue) -eq $null) {
+        Write-Host "`n  You need to install the VMware PowerCLI module to run this script. Exiting...`r" -ForegroundColor Yellow
+        exit
+    }
+    else {
+        Import-Module -Name $oldModule -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
+        $moduleVersion = $(Get-Module -Name $oldModule).Version
+        Write-Host "`n  The VMware PowerCLI module version $moduleVersion is loaded successfuly.`r" -ForegroundColor Green
+    }   
+}
+else {
+    $moduleVersion = $(Get-InstalledModule -Name $newModule).Version
+    Write-Host "`n  The VMware PowerCLI module version $moduleVersion is detected.`r" -ForegroundColor Green
+}
+
 
 # Connect to the vCenter server
 $VIServer = Read-Host -Prompt " Input the vCenter server name and then press Enter"
