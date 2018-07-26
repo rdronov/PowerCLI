@@ -2,8 +2,8 @@
 #
 # Description: This script checks and sets the firmware type to EFI for a particular VM
 #
-# 25/07/2018 - Version 1.0
-#     - Initial Release
+# 25/07/2018 - Version 1.0.1
+#     - Initial release with minor changes
 #
 # Author: Roman Dronov (c)
 
@@ -48,7 +48,8 @@ function Set-Firmware {
                 Write-Host " Completed successfully!" -ForegroundColor Green
             }
             else {
-                Write-Host " $vm is powered on. Please shutdown the VM and run this script again." -ForegroundColor Red
+                Write-Host " $vm is powered on!" -ForegroundColor Red
+                Write-Host " Please shutdown the VM and run this script again." -ForegroundColor Yellow
             }
             
             Write-Host "`n Exiting..."
