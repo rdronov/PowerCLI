@@ -33,13 +33,11 @@ function Set-Firmware {
     switch ($choice){
         "Yes" {
             Write-Host " Checking the VM power state..." -NoNewline
-            Start-Sleep -Seconds 1
 
             if ($vm.PowerState -eq 'PoweredOff'){
                 Write-Host " The VM is powered off." -ForegroundColor Green
                 Write-Host " Setting the firmware type..." -NoNewline
-                Start-Sleep -Seconds 1
-
+                
                 if ($Argument -eq '0'){
                     Get-VM -Name $vmName | New-AdvancedSetting -Name 'firmware' -Value 'efi' -Confirm:$false | Out-Null
                 }
@@ -85,7 +83,6 @@ $vm = Get-VM -Name $vmName
 $vmFirmware = Get-AdvancedSetting -Entity $vm -Name 'firmware'
 
 Write-Host "`n Checking the firmware advanced setting for $vmName..."
-Start-Sleep -Seconds 1
 
 if (-not $vmFirmware){
     
