@@ -2,7 +2,7 @@
 #
 # Description: This script checks and sets the firmware type to EFI for a particular VM
 #
-# 26/07/2018 - Version 1.0
+# 25/07/2018 - Version 1.0
 #     - Initial Release
 #
 # Author: Roman Dronov (c)
