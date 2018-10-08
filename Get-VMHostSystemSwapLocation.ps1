@@ -6,6 +6,7 @@
 #
 # Author: Roman Dronov (c)
 
+
 Clear-Variable vhost -Scope Global
 
 ForEach ($vhost in $(Get-VMHost | sort Name)) {
