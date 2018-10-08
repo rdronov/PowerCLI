@@ -6,7 +6,8 @@
 #
 # Author: Roman Dronov (c)
 
-Clear-Variable vhost,esxcli2 -Scope Global | Out-Null
+
+# Get information about the system swap location for ESXi hosts
 
 Write-Host "`nSystem swap location:`r" -ForegroundColor Green
 
