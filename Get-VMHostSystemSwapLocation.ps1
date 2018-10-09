@@ -11,16 +11,16 @@
 
 Write-Host "`nSystem swap location:`r" -ForegroundColor Green
 
-ForEach ($vhost in $(Get-VMHost | sort Name)) {
+ForEach ($vmhost in $(Get-VMHost | sort Name)) {
 
-  $esxcli2 = Get-EsxCli -VMHost $vhost -V2
+  $esxcli2 = Get-EsxCli -VMHost $vmhost -V2
 
   $esxcli2.sched.swap.system.get.Invoke() | Select `
-  @{N='Host Name';E={$vhost.Name}}, `
+  @{N='Host Name';E={$vmhost.Name}}, `
   @{N='Datastore Name';E={$_.DatastoreName}}, `
   @{N='Datastore Active';E={(Get-Culture).TextInfo.ToTitleCase($_.DatastoreActive)}}, `
   @{N='Datastore Enabled';E={(Get-Culture).TextInfo.ToTitleCase($_.DatastoreEnabled)}}
 
 }
 
-Clear-Variable vhost,esxcli2 -Scope Global
+Clear-Variable vmhost,esxcli2 -Scope Global
