@@ -20,3 +20,5 @@ ForEach ($vm in $(Get-VM)) {
     @{N='VM Name';E={$vm.Name}},@{N='3D Support Enabled';E={$_.Enable3DSupport}}
 
 }
+
+Clear-Variable vm,videocard -Scope Global
