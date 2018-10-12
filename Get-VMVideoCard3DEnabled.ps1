@@ -10,6 +10,8 @@
 
 # Check the video card 3D support enabled for virtual machines
 
+Write-Host "`n3D support status:`r" -ForegroundColor Green 
+
 ForEach ($vm in $(Get-VM)) {
 
   $videocard = $vm.ExtensionData.Config.Hardware.Device | ? {$_.GetType().Name -eq "VirtualMachineVideoCard" }
