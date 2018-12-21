@@ -1,4 +1,4 @@
-# File name: Remove-OldPowerCLI
+# File name: Remove-OldPowerCLI.ps1
 # Description: This script removes the old versions of VMware.PowerCLI and its dependencies
 #
 # 21/12/2018 - Version 1.0
