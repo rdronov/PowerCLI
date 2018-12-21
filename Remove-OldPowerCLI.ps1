@@ -11,5 +11,5 @@ $modules = @((Get-Module -ListAvailable | ? {$_.Name -like "VMware*"}).Name | Ge
 foreach ($module in $modules){
     $latest = Get-InstalledModule -Name $module
 
-    Get-InstalledModule -Name $module -AllVersions | ? {$_.Version -ne $latest.Version} | Uninstall-Module -Verbose
+    Get-InstalledModule -Name $module -AllVersions | ? {$_.Version -ne $latest.Version} | Uninstall-Module -Force -Verbose
 }
