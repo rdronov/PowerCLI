@@ -13,7 +13,7 @@ $vmhosts = Get-VMHost | ? {$_.ConnectionState -eq "Connected" -or $_.ConnectionS
 
 $vmhost = Read-Host -Prompt "`n Please type in the ESXi host name"
 
-while ($vmhosts.Contains($vmhost) -ne "True") {
+while ($vmhosts.Contains("$vmhost") -ne "True") {
 
   Write-Host "`n Checking the host exists..." -NoNewline
 
