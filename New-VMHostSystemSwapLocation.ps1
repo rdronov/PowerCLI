@@ -1,8 +1,10 @@
 # File name: New-VMHostSystemSwapLocation.ps1
 # Description: This script creates a system swap file for the ESXi host on a desired datastore.
 #
-# 08/10/2018 - Version 1.0
+# 08/10/2018 - Version 1.0.0
 #     - Initial Release (based on https://code.vmware.com/forums/2530/vsphere-powercli#534332)
+# 22/04/2019 - Version 1.0.1
+#     - Minor changes to identify the ESXi hostname better
 #
 # Author: Roman Dronov (c)
 
@@ -11,7 +13,7 @@
 
 $vmhosts = Get-VMHost | ? {$_.ConnectionState -eq "Connected" -or $_.ConnectionState -eq "Maintenance"} | ForEach-Object {$_.Name.Split('.')[0]}
 
-$vmhost = Read-Host -Prompt "`n Please type in the ESXi host name"
+$vmhost = (Read-Host -Prompt "`n Please type in the ESXi host name").Split('.')[0]
 
 while ($vmhosts.Contains("$vmhost") -ne "True") {
 
@@ -19,7 +21,7 @@ while ($vmhosts.Contains("$vmhost") -ne "True") {
 
   Write-Host " The host is not reachable." -ForegroundColor Yellow
 
-  $vmhost = Read-Host -Prompt "`n Please type in the host name correctly"
+  $vmhost = Read-Host -Prompt "`n Please type in the hostname correctly"
 
 }
 
